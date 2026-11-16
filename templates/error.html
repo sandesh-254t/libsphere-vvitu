@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}{{ code }} · LibSphere{% endblock %}{% block content %}<section
+    class="auth-wrap">
+    <div class="auth-card">
+        <h1>{{ code }}</h1>
+        <p>{{ message }}</p><a class="btn" href="{{ url_for('home') }}">Return home</a>
+    </div>
+</section>{% endblock %}

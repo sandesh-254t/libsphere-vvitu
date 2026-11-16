@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Sign in · LibSphere{% endblock %}{% block content %}<section
+    class="auth-wrap">
+    <div class="auth-card glass"><span class="eyebrow">VVITU COMMUNITY</span>
+        <h1>Sign in to <span>LibSphere.</span></h1>
+        <p class="muted">Use your institutional email address.</p>
+        <form method="post" class="stack"><label>Institutional email<input type="email" name="email" required autofocus
+                    placeholder="you@vvitu.ac.in"></label><label>Password<input type="password" name="password" required
+                    placeholder="Enter password"></label><button class="btn full">Sign in →</button></form>
+        <p class="muted tiny">New student? <a href="{{ url_for('register') }}">Create an account</a></p>
+        <div class="demo-box"><b>Local demo accounts</b>
+            <p>Admin: <code>admin@vvitu.ac.in</code> / <code>Admin@123</code></p>
+            <p>Librarian: <code>librarian@vvitu.ac.in</code> / <code>Lib@123</code></p>
+            <p>Student: <code>student@vvitu.ac.in</code> / <code>Student@123</code></p><small>Change these passwords
+                before deployment.</small>
+        </div>
+    </div>
+</section>{% endblock %}

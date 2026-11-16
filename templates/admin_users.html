@@ -1,0 +1,55 @@
+{% extends "base.html" %}{% block title %}Manage Users · LibSphere{% endblock %}{% block content %}<section
+    class="page-head"><span class="eyebrow">ADMINISTRATION</span>
+    <h1>Manage <span>users.</span></h1>
+    <p class="muted">Create accounts, assign roles and manage access for students, faculty and librarians.</p>
+</section>
+<form method="post" class="form-panel"><input type="hidden" name="action" value="create">
+    <h2>Create account</h2>
+    <div class="form-grid"><label>Name<input name="name" required></label><label>Username / Roll number<input
+                name="username" required></label><label>Institutional email<input type="email" name="email" required
+                placeholder="name@vvitu.ac.in"></label><label>Temporary password<input type="password" name="password"
+                minlength="8" required></label><label>Role<select name="role">
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+                <option value="librarian">Librarian</option>
+                <option value="admin">Admin</option>
+            </select></label></div><button class="btn">Create account →</button>
+</form>
+<form class="search-panel" method="get"><input name="q" value="{{ q }}"
+        placeholder="Search name, username or email"><button class="btn">Search</button></form>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>{% for u in users %}<tr>
+                <td><b>{{ u.name }}</b><small class="subline">{{ u.username }}</small></td>
+                <td>{{ u.email }}</td>
+                <td>
+                    <form method="post" class="inline-admin"><input type="hidden" name="user_id"
+                            value="{{ u.id }}"><input type="hidden" name="action" value="role"><select name="role"
+                            onchange="this.form.submit()" {% if u.id==current_user.id %}disabled{% endif %}>
+                            <option value="student" {% if u.role=='student' %}selected{% endif %}>Student</option>
+                            <option value="faculty" {% if u.role=='faculty' %}selected{% endif %}>Faculty</option>
+                            <option value="librarian" {% if u.role=='librarian' %}selected{% endif %}>Librarian</option>
+                            <option value="admin" {% if u.role=='admin' %}selected{% endif %}>Admin</option>
+                        </select></form>
+                </td>
+                <td><span class="status {{ 'available' if u.is_active else 'unavailable' }}">{{ 'Active' if u.is_active
+                        else 'Inactive' }}</span></td>
+                <td>{% if u.id != current_user.id %}<form method="post" class="inline-admin"><input type="hidden"
+                            name="user_id" value="{{ u.id }}"><input type="hidden" name="action"
+                            value="{{ 'deactivate' if u.is_active else 'activate' }}"><button class="text-button">{{
+                            'Deactivate' if u.is_active else 'Activate' }}</button></form>{% else %}<small
+                        class="muted">Current account</small>{% endif %}</td>
+            </tr>{% else %}<tr>
+                <td colspan="5">No users found.</td>
+            </tr>{% endfor %}</tbody>
+    </table>
+</div>{% endblock %}

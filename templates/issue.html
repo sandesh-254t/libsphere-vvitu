@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Issue Book · LibSphere{% endblock %}{% block content %}<section
+    class="page-head"><span class="eyebrow">CIRCULATION</span>
+    <h1>Issue a <span>book.</span></h1>
+</section>
+<form method="post" class="form-panel narrow"><label>Book ACC.NO<input name="acc_no" id="issueAcc" required
+            placeholder="Scan or enter accession number"></label><label>Borrower account<select name="username"
+            required>
+            <option value="">Select student / faculty</option>{% for u in users %}<option value="{{ u.username }}">{{
+                u.name }} · {{ u.username }} ({{ u.role }})</option>{% endfor %}
+        </select></label>
+    <p class="muted tiny">Default loan period: 14 days. The system records the issuing librarian and book condition.</p>
+    <button class="btn">Confirm issue →</button>
+</form>{% endblock %}

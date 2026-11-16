@@ -1,0 +1,49 @@
+{% extends "base.html" %}{% block title %}Manage Inventory · LibSphere{% endblock %}{% block content %}<section
+    class="page-head"><span class="eyebrow">LIBRARY ADMINISTRATION</span>
+    <h1>Inventory <span>management.</span></h1>
+</section>
+<div class="action-row"><a class="btn" href="{{ url_for('add_book') }}">＋ Register copy</a><a class="btn btn-ghost"
+        href="{{ url_for('scanner') }}">▦ Open scanner</a></div>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>ACC.NO</th>
+                <th>Book title</th>
+                <th>Call no.</th>
+                <th>Shelf</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>{% for c in copies %}<tr>
+                <td><b>{{ c.acc_no }}</b></td>
+                <td>{{ c.book.title }}</td>
+                <td>{{ c.book.call_no }}</td>
+                <td>{{ c.shelf }}</td>
+                <td><span class="status {{ c.status }}">{{ c.status }}</span></td>
+                <td><a class="text-link" href="{{ url_for('copy_detail', copy_id=c.id) }}">Passport →</a></td>
+            </tr>{% endfor %}</tbody>
+    </table>
+</div>
+<section class="section-head">
+    <div><span class="eyebrow">ACCOUNTS</span>
+        <h2>Registered users</h2>
+    </div>
+</section>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>{% for u in users %}<tr>
+                <td>{{ u.name }}</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.role }}</td>
+            </tr>{% endfor %}</tbody>
+    </table>
+</div>{% endblock %}

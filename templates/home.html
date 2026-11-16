@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}VVITU LibSphere · Discover{% endblock %}{% block content %}
+<section class="hero">
+ <div class="hero-copy"><span class="eyebrow"><i></i> VASIREDDY VENKATADRI INTERNATIONAL TECHNOLOGICAL UNIVERSITY</span>
+ <h1>Discover more.<br><span>Know more.</span></h1><p class="lead">Your campus library, reimagined. Search physical books, explore digital resources and keep your learning moving.</p>
+ <form action="{{ url_for('books') }}" class="hero-search"><span>⌕</span><input name="q" placeholder="Search title, author, ACC.NO or barcode..."><button class="btn">Explore collection →</button></form>
+ <div class="hero-actions"><a class="btn" href="{{ url_for('books') }}">Explore Books</a><a class="btn btn-ghost" href="{{ url_for('digital') }}">Digital Library ↗</a></div>
+ <div class="stats-row"><div><b>{{ total_titles }}</b><small>Book titles</small></div><div><b>{{ total_copies }}</b><small>Physical copies</small></div><div><b>{{ available }}</b><small>Available now</small></div></div>
+ </div>
+ <div class="hero-art"><div class="orb"></div><div class="book3d book-one"><span>KNOWLEDGE<br>IS POWER</span><small>VVITU · LIBRARY</small></div><div class="book3d book-two"><span>EXPLORE<br>IDEAS</span><small>LEARN EVERY DAY</small></div><div class="float-chip chip-a">✦  Explore</div><div class="float-chip chip-b">▤  Discover</div></div>
+</section>
+<section class="section-head"><div><span class="eyebrow">THE COLLECTION</span><h2>Recently added</h2></div><a href="{{ url_for('books') }}" class="text-link">View all books →</a></section>
+<div class="book-grid">{% for book in recent %}<a class="book-card tilt" href="{{ url_for('book_detail', book_id=book.id) }}"><div class="cover-placeholder"><span>VVITU<br>LIBRARY</span><i>✦</i></div><div class="book-info"><h3>{{ book.title }}</h3><p>{{ book.author or 'Author not specified' }}</p><small>{{ book.copies|length }} registered copy/copies</small></div></a>{% else %}<div class="empty">No books registered yet. Librarians can add the first book.</div>{% endfor %}</div>
+{% endblock %}
